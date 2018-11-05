@@ -5,6 +5,13 @@ class Bank{
 
 
 
+class Customer{
+
+
+}//end of Customer class
+
+
+
 
 class Transaction{
 
