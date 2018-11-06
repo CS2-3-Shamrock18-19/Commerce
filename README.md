@@ -8,6 +8,7 @@ You will create four different objects - from classes - which will monitor and d
 -  Bank : houses financial records to be updated
 -  Customer: a person with a name, an account id, a wallet, and secret pinn number to deposit and withdraw money.
 
+
 #### Bank
 The bank keeps track of 4 pieces of information per customer: account id, name, total, and pinn.  You should have an array for each of these where the index numbers all align per customer.  The bank also has 4 essential functions: verifyAccount(), verifyAccess() deposit(), and withdraw().  The verify functions must return a boolean confirming that the user information matches the correct inputs to either deposit or withdraw.
 
@@ -16,22 +17,59 @@ The bank keeps track of 4 pieces of information per customer: account id, name, 
     -  accountName :string[]
     -  total :number[]
     -  accountPinn :string[]
+
 -  **Constructor**
     -  accepts a datalist of lists, each of length 4, as input.
-    -  loops through the datalist and transferes the data to the 4 instance array variables
+    -  loops through the datalist and transfers the data to the 4 instance array variables
+
 -  **Instance Methods**
     -  deposit(t:Transaction) : void {}
     -  withdraw(t:Transaction) : number {}
+-  **Static Methods**
+    -  verifyAccount() : boolean {}
+    -  verifyAccess() : boolean {}
+
+
+To create these functions you receive a transaction as input (see the class description below).  You will need to verify that both users exist in the bank with verifyAccount().  If this is true you can then either add or subtract money from the correct accounts.  Note that if you are making a withdrawl or subtracting money from an account you will also need to check the verifyAccess()
+
 
 #### Customer
 A customer only has a handful of cash on them in their wallet but can go to the bank to deposit or withdraw money at various times.
+
 
 -  **Instance Variables**
     -  accountName :string
     -  total :number
     -  accoundID :string
     -  accountPinn :string
+
+
 -  **Constructor**
-    Have the constructor set the persons name, first and last with a simple space, the account ID which is a 16-digit #, and the accountPinn which is a 4-digit number.  Have the constructor randomly generate somewhere between $0 to $200 for
+    -  Have the constructor set the persons name, first and last with a simple space.
+    -  The account ID which is a 16-digit #
+    -  The accountPinn which is a 4-digit number.
+    -  Have the constructor randomly generate somewhere between $0 to $200 for the total.
+
+
 -  **Instance Methods**
-    -  issueTransaction() : Transaction {}
+    -  issueTransaction(to: string) : Transaction {}
+
+
+
+#### Transaction
+A transaction is an object - from a class - which contains all of the information necessary for customers to communicate between banks.  
+
+
+-  **Instance Variables**
+    -  from :string
+    -  pinn :string
+    -  to :string
+    -  transType :string
+    -  amount :number
+
+
+The variables "from" and "to" indicate which accounts you are sending money "from" or money "to".  In the beginning we can only send money to our selves, but in the future when we want to buy things this will change.  "TransType" is a one of two options, either deposit or withdraw.  And the amount should be a positive or negative number.
+
+-  **Constructor**
+    -  Just have the constructor fill all of the 5 instance variables.
+    -  This is just a wrapping data-class, it does not have any methods.
