@@ -16,12 +16,14 @@ Imagine you are a merchant, aka a store, and you are trying to conduct business.
     -  balance : number;
     -  limit :number;
 
+-  You create an **abstract class** name **Payable** which has a default function pay which Card and Mobile will implement.
+    -  **pay(amount, type)** depending on class, the type will change
 
--  You create an **abstract class** named **Card** which has a default constructor and a default pay function.
+-  You create an **abstract class** named **Card** which has a default constructor.
     -  **Debit** is an extension of the Card
     -  **Credit** is another extension of the Card
 
--  You create an **abstract class** named **Mobile** which has a deault constructor and a default pay function.  Need to think a little more about how it wraps around the card.
+-  You create an **abstract class** named **Mobile** which has a default constructor.
     -  **GooglePay**
     -  **ApplePay**
 
@@ -43,6 +45,10 @@ This is a contract for what payment objects should look like.  They have 4 field
 -  account:string;
 -  code:string;
 
+### abstract class Payable
+This class has one function pay().  For the card implementation you will have to check that it does not go over the limit, but with the mobile classes you can just return the IPayment object.
+-  abstract pay(amount: number, type:string) : IPayment;
+
 ### abstract class Card
 This class has all of the same fields as the ICardInfo, pass these into the constructor and assign all of the parameters.
 -  name : string;
@@ -51,20 +57,20 @@ This class has all of the same fields as the ICardInfo, pass these into the cons
 -  balance : number;
 -  limit :number;
 -  constructor(info: ICardInfo){}
-- abstract pay(amount:number) : IPayment {}
+- abstract pay(amount: number, type:string) : IPayment {}
 
 The pay method should check to make sure, using the balance, the amount, and the limit, that your purchase does not exceed the limit.  If so, then you can build the IPayment object and return it.
 
 ### class Debit extends Card
 -  constructor(info: ICardInfo){ super(info);}
--  pay() method as described in the abstract class.
+-  pay(amount: number) method should return the super method from the card class.
 
 ### class Credit extends Card
 -  interest: number;
 -  constructor(info: ICardInfo){}
     -  use the super method from before.
     -  also set the interest to a random decimal between 0.15 and 0.25
--  pay() method as described in the abstract class.
+-  pay() method should return the super method from the card class.
 -  updateBalance() method which increases you balance according to the interest rate.
 
 ### abstract class Mobile
@@ -75,7 +81,7 @@ This class is similar to the card class but it has different information to keep
 -  cardNumber: string;
 -  code : string;
 -  constructor(info: ICardInfo, pn: string)
--  pay(amount: number) : IPayment method as described in the abstract card class.
+-  pay(amount: number, type:string) : IPayment method as described in the abstract card class.
 -  static makePhoneNumber() : string
 
 To create a random phoneNumber make a random 9 digit number.  I would suggest subtracting from 1,000,000,000, but make sure you do not subtract too far.  Then turn it into a string, then slice it up with the substring method to make something like 2349583458 ---> (234)958-3458.  Use the static method inside the constructor.
