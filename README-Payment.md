@@ -68,8 +68,22 @@ The pay method should check to make sure, using the balance, the amount, and the
 -  updateBalance() method which increases you balance according to the interest rate.
 
 ### abstract class Mobile
+This class is similar to the card class but it has different information to keep track of:  The payName will be set later, could be Google Pay or Apple Pay.  Instead of a user name it only has a phone number, but there is still a card.
+
+-  payName: string;
+-  phoneNumber: string;
+-  cardNumber: string;
+-  code : string;
+-  constructor(info: ICardInfo, pn: string)
+-  pay(amount: number) : IPayment method as described in the abstract card class.
+-  static makePhoneNumber() : string
+
+To create a random phoneNumber make a random 9 digit number.  I would suggest subtracting from 1,000,000,000, but make sure you do not subtract too far.  Then turn it into a string, then slice it up with the substring method to make something like 2349583458 ---> (234)958-3458.  Use the static method inside the constructor.
+
 
 
 ### class GooglePay extends Mobile
+Essentially the only difference is to use the correct payName in the constructor and to execute method with the right pay type.
 
 ### class ApplePay extends Mobile
+Essentially the only difference is to use the correct payName in the constructor and to execute method with the right pay type.
